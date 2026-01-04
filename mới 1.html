@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Graduation Invitation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(135deg,#dbeafe,#ffffff);
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding-top:20px;
+}
+
+/* ENVELOPE */
+.envelope{
+  width:330px;
+  height:220px;
+  background:#1e3a8a;
+  border-radius:12px;
+  position:relative;
+  cursor:pointer;
+}
+
+.envelope::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#2563eb;
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);
+  border-radius:12px;
+}
+
+.open-text{
+  position:absolute;
+  top:90px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+  font-weight:bold;
+  animation:pulse 1.2s infinite;
+  z-index:3;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+/* LETTER – FIX CÂN GIỮA */
+.letter{
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translate(-50%, 90px);
+  width:94%;
+  max-width:360px;
+  max-height:85vh;
+
+  background-image:url("https://i.pinimg.com/1200x/a2/3a/d6/a23ad679b9a1772a5db449bf8df8e718.jpg");
+  background-size:cover;
+  background-position:center;
+  border-radius:20px;
+  padding:16px;
+  border:3px solid #cbd5e1;
+
+  opacity:0;
+  transition:1s;
+  overflow-y:auto;
+}
+
+/* KHI MỞ */
+.envelope.open .letter{
+  transform:translate(-50%, -180px);
+  opacity:1;
+}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openLetter()">
+  <div class="open-text">📩</div>
+
+  <div class="letter">
+
+    <img src="https://i.pinimg.com/originals/e4/d6/a8/e4d6a8b1cc9e949a3e9861950cfae318.png"
+         style="width:120px;margin:6px auto;display:block;">
+
+    <img src="https://i.pinimg.com/1200x/e1/4d/78/e14d78290fa1f277df90e93af81fd121.jpg"
+         style="
+           position:absolute;
+           top:55%;
+           left:50%;
+           transform:translate(-50%,-50%);
+           width:260px;
+           opacity:0.25;
+           z-index:0;
+           pointer-events:none;
+         ">
+
+    <!-- CONTENT -->
+    <div style="
+      position:relative;
+      z-index:1;
+      background:rgba(255,255,255,0.75);
+      border-radius:14px;
+      padding:12px 8px;
+      color:#020617;
+      text-align:center;
+    ">
+
+      <h2 style="margin:6px 0;color:#0f172a;">🎓 GRADUATION 🎓</h2>
+
+      <div style="
+        font-family:'Dancing Script',cursive;
+        font-size:34px;
+        margin:4px 0;
+        color:#1e40af;
+      ">
+        Nguyễn Quang Nam
+      </div>
+
+      <div style="
+        font-family:'Alex Brush', cursive;
+        font-size:26px;
+        margin-bottom:6px;
+        color:#1e3a8a;
+      ">
+        12A12
+      </div>
+
+      <!-- DATE -->
+      <div style="
+        margin:10px 0;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:14px;
+      ">
+        <div>
+          <div style="border-top:2px solid #1e3a8a;border-bottom:2px solid #1e3a8a;padding:4px 10px;">
+            <div style="font-size:14px;letter-spacing:2px;">CHỦ NHẬT</div>
+          </div>
+        </div>
+
+        <div style="text-align:center;min-width:80px;">
+          <div style="font-size:14px;letter-spacing:2px;">THÁNG 1</div>
+          <div style="font-size:48px;font-weight:bold;line-height:1;color:#0f172a;">18</div>
+          <div style="font-size:14px;letter-spacing:2px;">2026</div>
+        </div>
+
+        <div>
+          <div style="border-top:2px solid #1e3a8a;border-bottom:2px solid #1e3a8a;padding:4px 10px;">
+            <div style="font-size:14px;letter-spacing:2px;">9:30 AM</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin:6px 0;"><b>🏫:</b> THPT Lê Hồng Phong</p>
+      <p style="margin:6px 0;">💙 Thanh xuân chỉ đến một lần 💙</p>
+
+      <p style="font-style:italic;margin:6px 0;">
+        Trân trọng kính mời bạn đến tham dự buổi chụp kỉ yếu của mình
+      </p>
+
+      <div id="countdown" style="margin-top:8px;font-weight:bold;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openLetter(){
+  document.querySelector(".envelope").classList.add("open");
+  document.querySelector(".open-text").style.display="none";
+  startConfetti();
+}
+
+const targetDate = new Date("2026-01-18T09:30:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  let d = targetDate - now;
+
+  if (d < 0) {
+    document.getElementById("countdown").innerHTML = "📸 ĐẾN NGÀY CHỤP KỈ YẾU!";
+    return;
+  }
+
+  const days = Math.floor(d / (1000*60*60*24));
+  d %= (1000*60*60*24);
+  const h = Math.floor(d / (1000*60*60));
+  d %= (1000*60*60);
+  const m = Math.floor(d / (1000*60));
+  const s = Math.floor((d % (1000*60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+    `⏰ ${days} ngày ${String(h).padStart(2,"0")} : ${String(m).padStart(2,"0")} : ${String(s).padStart(2,"0")}`;
+}, 1000);
+
+function startConfetti(){
+  for(let i=0;i<80;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+    c.style.animationDuration=(Math.random()*2+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
